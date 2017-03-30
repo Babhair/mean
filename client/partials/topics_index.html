@@ -1,0 +1,43 @@
+<div ng-controller="TopicsController as TC">
+	<div id="header" ng-init="TC.index()">
+		<h1>Welcom {{UC.current_user.name}}</h1>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<th>Category</th>
+				<th>Topic</th>
+				<th>User Name</th>
+				<th>Posts</th>
+			</tr>
+			<tr ng-repeat="topic in TC.topics">
+				<td>{{topic.category.category}}</td>
+				<td>{{topic.topic}}</td>
+				<td>{{topic.author}}</td>
+				<td>{{topic.posts.length}}</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h2>Add a new Topic</h2>
+		<form ng-submit="TC.create(TC.newTopic)">
+			<div>
+				<label>Topic</label>
+				<textarea ng-model="TC.newTopic.topic"></textarea>
+			</div>
+			<div>
+				<label>Description (optional)</label>
+				<textarea ng-model="TC.newTopic.description"></textarea>
+			</div>
+			<div ng-init="TC.getCategories()">
+				<label>Categories</label>
+				<select ng-model="TC.newTopic.category">
+					<option ng-repeat="category in TC.categories" value="{{category._id}}">{{category.category}}</option>
+				</select>
+			</div>
+			<div>
+				<input type="submit" value="Create Topic">
+			</div>
+		</form>
+	</div>
+</div>
